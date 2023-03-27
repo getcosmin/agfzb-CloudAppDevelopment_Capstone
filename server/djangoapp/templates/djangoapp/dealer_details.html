@@ -8,7 +8,43 @@
 </head>
 
     <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Dealership</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="/djangoapp">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/djangoapp/about">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/djangoapp/contact">Contact</a>
+                  </li>
+              </ul>
+              {% if not user.is_authenticated %}
+              <form action="{% url 'djangoapp:login' %}"  method="post">
+                {% csrf_token %}
+                <div style="display:flex;gap: 12px;white-space: nowrap;align-items:center;">
+                  <input class="form-control" type="text" name="username" placeholder="Account"/>
+                  <input class="form-control" type="password" name="password" placeholder="Password"/>
+                  <button class="button btn-primary" type="submit">Login</button>
+                  <a href="/djangoapp/registration">Sign Up</a>
+                </div>
+              </form>
+              {% endif %}
 
+              {% if user.is_authenticated %}
+                <div style="display:flex;gap: 12px;white-space: nowrap;align-items:center;">
+                    <span><strong>Username:</strong> {{user.username}}</span>
+                    <div><a href="/djangoapp/logout">Sign Out</a></div>
+                </div>
+              {% endif %}
+            </div>
+          </nav>
     <!--Add a nav bar here -->
 
     <!-- Add reviews as cards -->
